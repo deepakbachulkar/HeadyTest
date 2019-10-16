@@ -1,24 +1,29 @@
 package com.deepak.headytest
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.annotation.Nullable
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.deepak.headytest.model.CategoriesDataResponaseVO
+import com.deepak.headytest.model.CategoriesViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()
+{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,5 +40,14 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun getDataShow(){
+        val model:CategoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel::class.java)
+        model.categories.observe(this, object:Observer<CategoriesDataResponaseVO>{
+            override fun onChanged(t: CategoriesDataResponaseVO?) {
+
+            }
+        })
     }
 }
