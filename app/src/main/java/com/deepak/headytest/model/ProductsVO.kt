@@ -16,6 +16,6 @@ class ProductsVO {
     var variants  = ArrayList<VariantsVO>()
 
     @SerializedName("tax")
-    var taxs  = ArrayList<TaxVO>()
+    var taxs  = TaxVO()
 
 }

@@ -6,5 +6,5 @@ import kotlin.collections.ArrayList
 
 class CategoriesDataResponaseVO{
     @SerializedName("categories")
-    var categories = ArrayList<Locale.Category>()
+    var categories = ArrayList<CategoryVO>()
 }
