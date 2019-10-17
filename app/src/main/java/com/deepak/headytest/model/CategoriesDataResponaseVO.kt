@@ -7,4 +7,9 @@ import kotlin.collections.ArrayList
 class CategoriesDataResponaseVO{
     @SerializedName("categories")
     var categories = ArrayList<CategoryVO>()
+
+    @SerializedName("rankings")
+    var rankings = ArrayList<CategoryVO>()
+
+
 }

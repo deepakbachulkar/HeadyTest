@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.deepak.headytest.R
 import com.deepak.headytest.model.CategoryVO
 
-class CategoryAdapter(private val context: Context, private val iSubcategory: ICategory, private var categories: ArrayList<CategoryVO>) :
+class CategoryAdapter(private val context: Context, private val iCategory: ICategory, private var categories: ArrayList<CategoryVO>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryHolder>()
 {
 
@@ -29,6 +29,9 @@ class CategoryAdapter(private val context: Context, private val iSubcategory: IC
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.tvCatgories.text = categories[position].name
         holder.tvCount.text = categories[position].products.size.toString()
+        holder.rootView.setOnClickListener {
+            iCategory.onItemClick(position)
+        }
     }
 
     interface ICategory {

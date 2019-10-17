@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HeadyTest</string>
     <string name="action_settings">Settings</string>
+    <string name="categories">Category List</string>
+    <string name="products">Products</string>
+    <string name="rupees" translatable="false">\u20B9</string>
 </resources>
