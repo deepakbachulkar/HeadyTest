@@ -27,6 +27,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.deepak.headytest.R
+import com.deepak.headytest.model.ProductsVO
 
 
 class MainActivity : AppCompatActivity()
@@ -94,7 +95,8 @@ class MainActivity : AppCompatActivity()
                 Log.i("Data", "Response: "+ response)
                 if(response.code() == 200 &&  response.body()!=null &&  response.body()!!.categories!=null) {
                     categories = response.body()!!.categories
-                    setRvAdapter(categories)
+                    categories(categories)
+                    setRvAdapter(categoriesNotEmpty)
                 }else{
                     Toast.makeText(this@MainActivity, "Unable to connect server! Please try again later.", Toast.LENGTH_SHORT).show()
                 }
@@ -128,10 +130,16 @@ class MainActivity : AppCompatActivity()
 
 
     private var categoriesNotEmpty = ArrayList<CategoryVO>()
-    private var product = ArrayList<CategoryVO>()
+    private var productViewMost = ArrayList<ProductsVO>()
     private fun categories(list: ArrayList<CategoryVO>)
     {
+        for(i in 0..list.size-1)
+        {
+            if(list.get(i).products!=null && list.get(i).products.size>0)
+            {
+                categoriesNotEmpty.add(list.get(i))
 
-
+            }
+        }
     }
 }

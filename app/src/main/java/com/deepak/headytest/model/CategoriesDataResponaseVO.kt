@@ -9,7 +9,7 @@ class CategoriesDataResponaseVO{
     var categories = ArrayList<CategoryVO>()
 
     @SerializedName("rankings")
-    var rankings = ArrayList<CategoryVO>()
+    var rankings = ArrayList<RankingsVO>()
 
 
 }
