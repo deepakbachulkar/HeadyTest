@@ -3,6 +3,7 @@ package com.deepak.headytest.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,11 @@ class ProductsAdapter(private val context: Context, private val rupee: String, p
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.tvProductName.text = products[position].name
-        holder.tvPrice.text = rupee + products[position].variants.get(0).price.toString()
+        Log.d("Selltm", "Rank Count: " + products[position].viewCount)
+        if(products[position].viewCount>0)
+            holder.tvPrice.text = products[position].viewCount.toString()
+        else
+            holder.tvPrice.text = rupee + products[position].variants.get(0).price.toString()
     }
 
     interface ICategory {

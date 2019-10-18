@@ -21,8 +21,11 @@ class ProductsVO : Parcelable
     @SerializedName("tax")
     var taxs  = TaxVO()
 
-    constructor() {
-    }
+    var viewCount = 0
+
+    var category = ""
+
+    constructor() {}
 
     constructor(parcel: Parcel) {
        id = parcel.readInt()

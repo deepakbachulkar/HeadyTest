@@ -12,6 +12,14 @@ class ProductsViewVO : Parcelable
     @SerializedName("view_count")
     var viewCount = 0
 
+    @SerializedName("order_count")
+    var orderCount = 0
+
+    @SerializedName("shares")
+    var shares = 0
+
+
+
     constructor() { }
 
     constructor(parcel: Parcel) {

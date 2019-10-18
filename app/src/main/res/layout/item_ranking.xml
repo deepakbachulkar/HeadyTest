@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:id="@+id/rl"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:padding="1dp"
+        >
+    <TextView
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            android:id="@+id/tv_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Ranking"/>
+
+</RelativeLayout>
