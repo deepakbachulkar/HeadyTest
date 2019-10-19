@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 class ProductsVO : Parcelable
 {
     @SerializedName("id")
-    var id = 0
+    var id:Int = 0
 
     @SerializedName("name")
     var name = ""
@@ -21,7 +21,7 @@ class ProductsVO : Parcelable
     @SerializedName("tax")
     var taxs  = TaxVO()
 
-    var viewCount = 0
+    var count:Int = 0
 
     var category = ""
 
@@ -32,6 +32,7 @@ class ProductsVO : Parcelable
         name = parcel.readString()
         dateAdded = parcel.readString()
         variants = parcel.readArrayList(ProductsVO::class.java.classLoader) as ArrayList<VariantsVO>
+        count = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -39,6 +40,7 @@ class ProductsVO : Parcelable
         parcel.writeString(name)
         parcel.writeString(dateAdded)
         parcel.writeList(variants)
+        parcel.writeInt(count)
     }
 
     override fun describeContents(): Int {

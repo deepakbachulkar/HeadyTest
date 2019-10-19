@@ -1,9 +1,8 @@
 package com.deepak.headytest.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
@@ -11,8 +10,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import com.deepak.headytest.R
+import com.deepak.headytest.Utils.Constants
+import com.deepak.headytest.adapter.ProductVarientAdapter
 import com.deepak.headytest.adapter.ProductsAdapter
 import com.deepak.headytest.model.ProductsVO
+import com.deepak.headytest.model.VariantsVO
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.collections.ArrayList
@@ -20,8 +22,8 @@ import kotlin.collections.ArrayList
 class ProductsActivity : AppCompatActivity()
 {
     private var products = ArrayList<ProductsVO>()
-    private lateinit var rcvProducts:RecyclerView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var rcvVarients:RecyclerView
+    private var isRanking = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +35,19 @@ class ProductsActivity : AppCompatActivity()
     }
 
     fun init(){
-        rcvProducts = findViewById(R.id.rcv_list)
-        progressBar =  findViewById(R.id.progress_bar)
+        rcvVarients = findViewById(R.id.rcv_list)
 
-        if(intent.hasExtra("data")){
-            products = intent.getParcelableArrayListExtra("data")
-
+        if(intent.hasExtra(Constants.KEY_DATA)){
+            products = intent.getParcelableArrayListExtra(Constants.KEY_DATA)
         }
-        if(intent.hasExtra("title")){
-            this.setTitle(intent.getStringExtra("title"))
+
+        if(intent.hasExtra(Constants.KEY_TITLE)){
+            this.title = intent.getStringExtra(Constants.KEY_TITLE)
+        }
+
+
+        if(intent.hasExtra(Constants.KEY_RANKING)){
+            isRanking = intent.getBooleanExtra(Constants.KEY_RANKING, false)
         }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,22 +66,17 @@ class ProductsActivity : AppCompatActivity()
         }
     }
 
-
-
     private fun setRvAdapter()
     {
-        progressBar.visibility = View.GONE
         // set up the RecyclerView
-        rcvProducts.layoutManager = LinearLayoutManager(this@ProductsActivity)
-        val adapter = ProductsAdapter(this@ProductsActivity, resources.getString(R.string.rupees), object :  ProductsAdapter.ICategory {
+        rcvVarients.layoutManager = LinearLayoutManager(this@ProductsActivity)
+        val adapter = ProductsAdapter(this@ProductsActivity, resources.getString(R.string.rupees), isRanking, object :  ProductsAdapter.ICategory {
             override fun onItemClick(position: Int) {
-
-            }}, products)
-                val verticalDecoration = DividerItemDecoration(this@ProductsActivity, DividerItemDecoration.HORIZONTAL)
-        verticalDecoration.setDrawable(ContextCompat.getDrawable(this@ProductsActivity!!,
-            R.drawable.line
-        )!!)
-        rcvProducts.addItemDecoration(verticalDecoration)
-        rcvProducts.adapter = adapter
+                val intents = Intent(this@ProductsActivity, ProductDetailsActivity:: class.java)
+                intents.putExtra(Constants.KEY_DATA, products.get(position))
+                intents.putExtra(Constants.KEY_RANKING, isRanking)
+                startActivity(intents)
+            }}, products )
+        rcvVarients.adapter = adapter
     }
 }

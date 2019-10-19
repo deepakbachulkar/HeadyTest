@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.deepak.headytest.R
+import com.deepak.headytest.Utils.Constants
 import com.deepak.headytest.adapter.RankingsAdapter
 import com.deepak.headytest.model.*
 import okhttp3.internal.Util
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity()
             {
                 progressBar.visibility = View.GONE
                 Log.i("Data", "Response: "+ response)
-                if(response.code() == 200 &&  response.body()!=null &&  response.body()!!.categories!=null) {
+                if(response.code() == 200 &&  response.body()!=null) {
                     categories = response.body()!!.categories
                     rankings = response.body()!!.rankings
                     Log.d("MainA", "Category count: "+ categories.size)
@@ -116,12 +117,12 @@ class MainActivity : AppCompatActivity()
         val adapter = CategoryAdapter(this@MainActivity, object :  CategoryAdapter.ICategory {
             override fun onItemClick(position: Int) {
                 val intents = Intent(this@MainActivity, ProductsActivity:: class.java)
-                intents.putParcelableArrayListExtra("data", categoriesNotEmpty.get(position).products)
-                intents.putExtra("title", categoriesNotEmpty.get(position).name)
+                intents.putParcelableArrayListExtra(Constants.KEY_DATA, categoriesNotEmpty.get(position).products)
+                intents.putExtra(Constants.KEY_TITLE, categoriesNotEmpty.get(position).name)
                 startActivity(intents)
             }}, categoriesNotEmpty)
                 val verticalDecoration = DividerItemDecoration(this@MainActivity, DividerItemDecoration.HORIZONTAL)
-        verticalDecoration.setDrawable(ContextCompat.getDrawable(this@MainActivity!!,
+        verticalDecoration.setDrawable(ContextCompat.getDrawable(this@MainActivity,
             R.drawable.line
         )!!)
         rcvCategries.addItemDecoration(verticalDecoration)
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity()
     {
         for(i in 0..categories.size-1)
         {
-            if(categories.get(i).products!=null && categories.get(i).products.size>0)
+            if( categories.get(i).products.size>0)
             {
                 categoriesNotEmpty.add(categories.get(i))
 
@@ -153,13 +154,15 @@ class MainActivity : AppCompatActivity()
                 var arrayList = ArrayList<ProductsVO>()
                 for(j in 0.. rankings.get(i).productView.size-1)
                 {
-//                    if(j <rankings.get(i).productView.size)
-//                    {
-                        Log.d("Selltm", "Rank Count new: "+ rankings.get(i).productView.get(j).id + " -> " + rankings.get(i).productView.get(j).viewCount)
-                        var productsVO = getProduct(rankings.get(i).productView.get(j).id, rankings.get(i).productView.get(j).viewCount)
-                        if (productsVO != null)
+                    var productsVO:ProductsVO? = null
+                    if(rankings.get(i).productView.get(j).viewCount>0)
+                        productsVO = getProduct(rankings.get(i).productView.get(j).id, rankings.get(i).productView.get(j).viewCount)
+                    if(rankings.get(i).productView.get(j).orderCount>0)
+                        productsVO = getProduct(rankings.get(i).productView.get(j).id, rankings.get(i).productView.get(j).orderCount)
+                    if(rankings.get(i).productView.get(j).shares>0)
+                        productsVO = getProduct(rankings.get(i).productView.get(j).id, rankings.get(i).productView.get(j).shares)
+                    if (productsVO != null)
                             arrayList.add(productsVO)
-//                    }
                 }
                 hashMapDataView.put(rankings.get(i).ranking, arrayList)
 //            }
@@ -171,14 +174,14 @@ class MainActivity : AppCompatActivity()
     {
         for(i in 0..categories.size-1)
         {
-            if(categories.get(i).products!=null && categories.get(i).products.size>0)
+            if(categories.get(i).products.size>0)
             {
                 for(j in 0.. categories.get(i).products.size-1) {
                     if (id == categories.get(i).products.get(j).id)
                     {
                         var productsVO = categories.get(i).products.get(j)
-                        productsVO.viewCount = rank
-                        Log.i("Rank", "Rank: "+rank)
+                        productsVO.count = rank
+                        Log.i("Rank", "Id: "+id+ " || Rank: "+ productsVO.count)
                         return productsVO;
                     }
                 }
@@ -196,16 +199,11 @@ class MainActivity : AppCompatActivity()
             {
                 var list = hashMapDataView.get(rank.ranking)
                 val intents = Intent(this@MainActivity, ProductsActivity:: class.java)
-                intents.putParcelableArrayListExtra("data", list)
-                intents.putExtra("title", rank.ranking)
+                intents.putParcelableArrayListExtra(Constants.KEY_DATA, list)
+                intents.putExtra(Constants.KEY_TITLE, rank.ranking)
+                intents.putExtra(Constants.KEY_RANKING, true)
                 startActivity(intents)
-
             }}, rankings)
-        val verticalDecoration = DividerItemDecoration(this@MainActivity, DividerItemDecoration.HORIZONTAL)
-        verticalDecoration.setDrawable(ContextCompat.getDrawable(this@MainActivity!!,
-            R.drawable.line
-        )!!)
-        rcvProductRankings.addItemDecoration(verticalDecoration)
         rcvProductRankings.adapter = adapter
     }
 }
