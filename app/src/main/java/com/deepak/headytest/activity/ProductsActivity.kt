@@ -30,14 +30,9 @@ class ProductsActivity : AppCompatActivity()
         setRvAdapter()
     }
 
-    fun init(){
+    fun init()
+    {
         bindingLayout = DataBindingUtil.setContentView<ViewDataBinding>(this, R.layout.activity_main) as com.deepak.headytest.databinding.ActivityMainBinding
-        if(isRanking)
-            setSupportActionBar(bindingLayout.toolbar)
-        bindingLayout.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        bindingLayout.toolbar.setNavigationOnClickListener(View.OnClickListener { finish() })
-
-        bindingLayout.includeContent.progressBar.visibility = View.GONE
         if(intent.hasExtra(Constants.KEY_DATA)){
             products = intent.getParcelableArrayListExtra(Constants.KEY_DATA)
         }
@@ -50,6 +45,13 @@ class ProductsActivity : AppCompatActivity()
         if(intent.hasExtra(Constants.KEY_RANKING)){
             isRanking = intent.getBooleanExtra(Constants.KEY_RANKING, false)
         }
+        if(isRanking)
+            setSupportActionBar(bindingLayout.toolbar)
+        bindingLayout.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        bindingLayout.toolbar.setNavigationOnClickListener(View.OnClickListener { finish() })
+
+        bindingLayout.includeContent.progressBar.visibility = View.GONE
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
