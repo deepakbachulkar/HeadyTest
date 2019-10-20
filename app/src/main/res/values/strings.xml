@@ -6,7 +6,11 @@
     <string name="rupees" translatable="false">\u20B9</string>
     <string name="product_details">Product Details</string>
     <string name="color">Color</string>
-    <string name="color">Color</string>
-    <string name="Size"/>
-    <string name="Price"/>
+    <string name="size">Size</string>
+    <string name="price">Price</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="added_to_cart">Item added to cart</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="item_count">Items</string>
 </resources>

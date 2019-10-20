@@ -2,13 +2,10 @@ package com.deepak.headytest.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.deepak.headytest.R
 import com.deepak.headytest.model.CategoryVO
@@ -29,6 +26,7 @@ class CategoryAdapter(private val context: Context, private val iCategory: ICate
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.tvCatgories.text = categories[position].name
         holder.tvCount.text = categories[position].products.size.toString()
+
         holder.rootView.setOnClickListener {
             iCategory.onItemClick(position)
         }

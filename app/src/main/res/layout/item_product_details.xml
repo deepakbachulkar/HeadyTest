@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
-
+<LinearLayout
+        android:id="@+id/ll_"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
     <TextView
-            android:text="TextView"
-            android:layout_width="154dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/tv_color" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_size"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/tv_color"
+            android:padding="10dp"/>
     <TextView
-            android:text="tv_size"
-            android:layout_width="100dp"
-            android:padding="10dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_size" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_color" app:layout_constraintEnd_toStartOf="@+id/tv_price"
-    />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/tv_size"
+            android:padding="10dp"/>
     <TextView
-            android:text="@string/rupees"
-            android:layout_width="105dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:padding="10dp"
-            android:id="@+id/tv_price" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_size" app:layout_constraintTop_toTopOf="parent"
-    />
-</android.support.constraint.ConstraintLayout>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/tv_price"
+            android:padding="10dp"/>
+    <RadioButton
+            android:id="@+id/rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+    android:clickable="false"/>
+</LinearLayout>
